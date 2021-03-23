@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">InstagramClone</string>
-    <string name="facebook_app_id">873009302900995</string>
-    <string name="fb_login_protocol_scheme">fb873009302900995</string>
+    <string name="facebook_app_id">2824548014452410</string>
+    <string name="fb_login_protocol_scheme">fb2824548014452410</string>
+
 
     <!-- Sign In -->
     <string name="email">Email</string>
