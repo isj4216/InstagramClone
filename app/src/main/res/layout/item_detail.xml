@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical">
+
+        <!-- 누가 업로드 했는지 -->
+        <ImageView
+            android:id="@+id/detailviewitem_profile_image"
+            android:src="@mipmap/ic_launcher"
+            android:layout_margin="7.5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"/>
+
+        <!-- 업로드한 유저의 이름 -->
+        <TextView
+            android:id="@+id/detailviewitem_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User name"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <!-- 컨텐츠 표시부분 -->
+        <ImageView
+            android:id="@+id/detailviewitem_imageview_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"/>
+
+        <!-- 설명글 표시 -->
+        <TextView
+            android:id="@+id/detailviewitem_explain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Explain Content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- 좋아요 갯수 -->
+        <TextView
+            android:id="@+id/detailviewitem_favorite_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="20dp"
+
+            android:text="Likes 0"/>
+
+        <!-- 좋아요, 덧글달기 버튼 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginRight="20dp"
+            android:gravity="right">
+
+            <ImageView
+                android:id="@+id/detailviewitem_favorite"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_favorite_border"/>
+
+            <ImageView
+                android:id="@+id/detailviewitem_comment"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_chat_black"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
