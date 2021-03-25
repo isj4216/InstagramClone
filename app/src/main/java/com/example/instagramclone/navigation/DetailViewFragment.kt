@@ -44,6 +44,10 @@ class DetailViewFragment : Fragment() {
                 ?.orderBy("timestamp")?.addSnapshotListener { querySnapshot, error ->
                 contentDTOs.clear()
                 contentUidList.clear()
+
+                //Simetimes, This code return null of querySnapshot when it signout
+                if(querySnapshot == null) return@addSnapshotListener
+
                 for(snapshot in querySnapshot!!.documents){
                     var item = snapshot.toObject(ContentDTO::class.java)
                     contentDTOs.add(item!!)
