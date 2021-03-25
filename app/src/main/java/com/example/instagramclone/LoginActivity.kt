@@ -64,6 +64,12 @@ class LoginActivity : AppCompatActivity() {
 //        printHashKey()
         callbackManager = CallbackManager.Factory.create()
     }
+
+    override fun onStart() {
+        super.onStart()
+        moveMainPage(auth?.currentUser)
+    }
+
     //Y/9SHNfvoTOv/P+tBSUWTXnNwdk=
     /*************************************FACEBOOK*************************************************/
     fun printHashKey(){
@@ -215,6 +221,7 @@ class LoginActivity : AppCompatActivity() {
         if(user != null){
             //유저가 있을경우 메인페이지로 이동
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 }

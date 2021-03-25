@@ -95,6 +95,17 @@ class DetailViewFragment : Fragment() {
                 //좋아요 클릭하지 않은 상태
                 viewholder.detailviewitem_favorite.setImageResource(R.drawable.ic_favorite_border)
             }
+
+            //profile 이미지 클릭 시 상대방 유저정보로 이동
+            viewholder.detailviewitem_profile_image.setOnClickListener {
+                var fragment = UserFragment()
+                var bundle = Bundle()
+                bundle.putString("destinationUid", contentDTOs[position].uid)
+                bundle.putString("userId", contentDTOs[position].userId)
+                fragment.arguments = bundle
+                activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
+            }
+
         }
 
         fun favoriteEvent(position : Int){
