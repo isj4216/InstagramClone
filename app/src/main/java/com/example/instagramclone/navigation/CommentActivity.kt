@@ -10,20 +10,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.instagramclone.R
+import com.example.instagramclone.navigation.model.AlarmDTO
 import com.example.instagramclone.navigation.model.ContentDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_comment.*
 import kotlinx.android.synthetic.main.item_comment.view.*
+import java.io.StringReader
 
 class CommentActivity : AppCompatActivity() {
 
     var contentUid : String? = null
+    var destinationUid : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment)
         contentUid = intent.getStringExtra("contentUid")
+        destinationUid = intent.getStringExtra("destinationUid")
 
         comment_recyclerview.adapter = CommentRecyclerviewAdapter()
         comment_recyclerview.layoutManager = LinearLayoutManager(this)
@@ -38,8 +42,21 @@ class CommentActivity : AppCompatActivity() {
             FirebaseFirestore.getInstance().collection("images").document(contentUid!!)
                 .collection("comments").document().set(comment)
 
+            commentAlarm(destinationUid!!, comment_message_edit.text.toString())
+
             comment_message_edit.setText("")
         }
+    }
+
+    fun commentAlarm(destinationUid : String, message : String){
+        var alarmDTO = AlarmDTO()
+        alarmDTO.destinationUid = destinationUid
+        alarmDTO.userId = FirebaseAuth.getInstance().currentUser?.email
+        alarmDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+        alarmDTO.kind = 1
+        alarmDTO.timestamp = System.currentTimeMillis()
+        alarmDTO.message = message
+        FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
     }
 
     inner class CommentRecyclerviewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
