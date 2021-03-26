@@ -213,9 +213,7 @@ class UserFragment : Fragment() {
             return CustomViewHolder(imageView)
         }
 
-        inner class CustomViewHolder(var imageView: ImageView) : RecyclerView.ViewHolder(imageView) {
-
-        }
+        inner class CustomViewHolder(var imageView: ImageView) : RecyclerView.ViewHolder(imageView)
 
         override fun getItemCount(): Int {
             return contentDTOs.size

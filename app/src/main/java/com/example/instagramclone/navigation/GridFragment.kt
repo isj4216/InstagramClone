@@ -54,9 +54,7 @@ class GridFragment : Fragment() {
             return CustomViewHolder(imageView)
         }
 
-        inner class CustomViewHolder(var imageView: ImageView) : RecyclerView.ViewHolder(imageView) {
-
-        }
+        inner class CustomViewHolder(var imageView: ImageView) : RecyclerView.ViewHolder(imageView)
 
         override fun getItemCount(): Int {
             return contentDTOs.size
@@ -67,5 +65,4 @@ class GridFragment : Fragment() {
             Glide.with(holder.itemView.context).load(contentDTOs[position].imageUrl).apply(RequestOptions().centerCrop()).into(imageView)
         }
     }
-
 }

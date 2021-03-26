@@ -16,8 +16,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_comment.*
 import kotlinx.android.synthetic.main.item_comment.view.*
-import java.io.StringReader
-
 class CommentActivity : AppCompatActivity() {
 
     var contentUid : String? = null

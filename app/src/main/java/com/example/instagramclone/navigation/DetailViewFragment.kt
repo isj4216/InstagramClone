@@ -50,7 +50,7 @@ class DetailViewFragment : Fragment() {
                 //Simetimes, This code return null of querySnapshot when it signout
                 if(querySnapshot == null) return@addSnapshotListener
 
-                for(snapshot in querySnapshot!!.documents){
+                for(snapshot in querySnapshot.documents){
                     var item = snapshot.toObject(ContentDTO::class.java)
                     contentDTOs.add(item!!)
                     contentUidList.add(snapshot.id)
@@ -74,19 +74,19 @@ class DetailViewFragment : Fragment() {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             var viewholder = (holder as CustomViewHolder).itemView
             //UserId
-            viewholder.detailviewitem_textview.text = contentDTOs!![position].userId
+            viewholder.detailviewitem_textview.text = contentDTOs[position].userId
 
             //Image
-            Glide.with(holder.itemView.context).load(contentDTOs!![position].imageUrl).into(viewholder.detailviewitem_imageview_content)
+            Glide.with(holder.itemView.context).load(contentDTOs[position].imageUrl).into(viewholder.detailviewitem_imageview_content)
 
             //Explain of context
-            viewholder.detailviewitem_explain.text = contentDTOs!![position].explain
+            viewholder.detailviewitem_explain.text = contentDTOs[position].explain
 
             //likes
             viewholder.detailviewitem_favorite_counter.text = "Likes " + contentDTOs!![position].favoriteCount
 
             //Profile Image
-            Glide.with(holder.itemView.context).load(contentDTOs!![position].imageUrl).into(viewholder.detailviewitem_profile_image)
+            Glide.with(holder.itemView.context).load(contentDTOs[position].imageUrl).into(viewholder.detailviewitem_profile_image)
 
             //좋아요 버튼에 이벤트
             viewholder.detailviewitem_favorite.setOnClickListener {
@@ -118,7 +118,6 @@ class DetailViewFragment : Fragment() {
                 intent.putExtra("destinationUid", contentDTOs[position].uid)
                 startActivity(intent)
             }
-
         }
 
         fun favoriteEvent(position : Int){
@@ -130,12 +129,12 @@ class DetailViewFragment : Fragment() {
 
                 if(contentDTO!!.favorites.containsKey(uid)){
                     //좋아요 눌려 있을 때(취소 가능하게)
-                    contentDTO?.favoriteCount = contentDTO?.favoriteCount!! - 1
-                    contentDTO?.favorites.remove(uid)
+                    contentDTO.favoriteCount = contentDTO.favoriteCount!! - 1
+                    contentDTO.favorites.remove(uid)
                 }else{
                     //좋아요 안눌려 있을 때(좋아요 가능하게)
-                    contentDTO?.favoriteCount = contentDTO?.favoriteCount!! + 1
-                    contentDTO?.favorites[uid!!] = true
+                    contentDTO.favoriteCount = contentDTO.favoriteCount!! + 1
+                    contentDTO.favorites[uid!!] = true
                     favoriteAlarm(contentDTOs[position].uid!!)
                 }
                 transaction.set(tsDoc, contentDTO)
@@ -151,6 +150,5 @@ class DetailViewFragment : Fragment() {
             alarmDTO.timestamp = System.currentTimeMillis()
             FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
         }
-
     }
 }
