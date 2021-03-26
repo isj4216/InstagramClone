@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,6 +32,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         //메인화면이 뜰경우 DetailViewFragment가 뜰 수 있도록
         bottom_navigation.selectedItemId = R.id.action_home
+
+        registerPushToken()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -83,6 +86,18 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         toolbar_user_id.visibility = View.GONE
         toolbar_btn_back.visibility = View.GONE
         toolbar_title_image.visibility = View.VISIBLE
+    }
+
+    //토큰 생성
+    fun registerPushToken(){
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener { task ->
+            val token = task.result?.token
+            val uid = FirebaseAuth.getInstance().currentUser.uid
+            val map = mutableMapOf<String, Any>()
+            map["pushtoken"] = token!!
+
+            FirebaseFirestore.getInstance().collection("pushtoken").document(uid!!).set(map)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
