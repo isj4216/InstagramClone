@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.instagramclone.navigation.*
+import com.example.instagramclone.navigation.util.FcmPush
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -35,6 +36,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         registerPushToken()
     }
+
+    /***********override fun onStop() {
+        super.onStop()
+        Toast.makeText(this, "ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ", Toast.LENGTH_LONG).show()
+        FcmPush.instance.sendMessage("6VDuu4KL8kYcl41YEDRLLZaUO4F3", "hoho", "hahaha")
+    }*/
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
