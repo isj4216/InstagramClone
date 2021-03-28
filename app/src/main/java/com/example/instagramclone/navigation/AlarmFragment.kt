@@ -1,9 +1,11 @@
 package com.example.instagramclone.navigation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,9 +16,10 @@ import com.example.instagramclone.navigation.model.AlarmDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_alarm.view.*
+import kotlinx.android.synthetic.main.item_comment.*
 import kotlinx.android.synthetic.main.item_comment.view.*
 
-class AlarmFragment : Fragment() {
+class AlarmFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -43,6 +46,7 @@ class AlarmFragment : Fragment() {
                 }
                 notifyDataSetChanged()
             }
+
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -70,20 +74,33 @@ class AlarmFragment : Fragment() {
             when(alarmDTOList[position].kind){
                 0 -> {
                     var str_0 = alarmDTOList[position].userId + " " + getString(R.string.alarm_favorite)
+                    view.delete_btn.text = alarmDTOList[position].timestamp.toString()
                     view.comment_profile_textview.text = str_0
                 }
 
                 1 -> {
                     var str_1 = alarmDTOList[position].userId + " " + getString(R.string.alarm_comment)
+                    view.delete_btn.text = alarmDTOList[position].timestamp.toString()
                     view.comment_profile_textview.text = str_1
                 }
 
                 2 -> {
                     var str_2 = alarmDTOList[position].userId + " " +getString(R.string.alarm_follow)
+                    view.delete_btn.text = alarmDTOList[position].timestamp.toString()
                     view.comment_profile_textview.text = str_2
                 }
             }
             view.comment_message.visibility = View.GONE
+            view.delete_btn.visibility = View.VISIBLE
+
+//            FirebaseFirestore.getInstance().collection("alarms").document(delete_btn.text.toString()).delete()
+
+            onClick(delete_btn)
         }
+    }
+
+    override fun onClick(v: View?) {
+        Log.e("delete", v?.delete_btn?.text.toString())
+//        FirebaseFirestore.getInstance().collection("alarms").document(delete_btn.text.toString()).delete()
     }
 }
