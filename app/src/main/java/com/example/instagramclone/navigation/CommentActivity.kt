@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.instagramclone.MainActivity
 import com.example.instagramclone.R
 import com.example.instagramclone.navigation.model.AlarmDTO
 import com.example.instagramclone.navigation.model.ContentDTO
@@ -16,6 +17,7 @@ import com.example.instagramclone.navigation.util.FcmPush
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_comment.*
+import kotlinx.android.synthetic.main.item_comment.*
 import kotlinx.android.synthetic.main.item_comment.view.*
 class CommentActivity : AppCompatActivity() {
 
@@ -103,10 +105,18 @@ class CommentActivity : AppCompatActivity() {
                 .get()
                 .addOnCompleteListener { task ->
                     if(task.isSuccessful){
-                        var url = task.result!!["image"]
-                        Glide.with(holder.itemView.context).load(url).apply(RequestOptions().circleCrop()).into(view.comment_profile_imageview)
+                        val url = task.result!!["image"]
+                        if(url.toString().contains("https://firebasestorage.googleapis.com")){
+                            Glide.with(view.context).load(url).apply(RequestOptions().circleCrop()).into(view.comment_profile_imageview)
+                        }else{
+                            val image = "https://firebasestorage.googleapis.com/v0/b/instagramclone-d76d7.appspot.com/o/userProfileImages%2FxSVsQQFZJeholpRDVKZhm9xQWHV2?alt=media&token=ecf6b52b-3cf7-4c0c-b2ba-90f41b3966c1"
+                            Glide.with(view.context).load(image).apply(RequestOptions().circleCrop()).into(view.comment_profile_imageview)
+                        }
                     }
                 }
+
+            //댓글 남길떄는 delete버튼 안보이게
+            view.delete_btn.visibility = View.GONE
         }
     }
 }

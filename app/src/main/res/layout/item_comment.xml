@@ -38,6 +38,7 @@
         android:background="@color/black"
         android:layout_gravity="center_vertical"
         android:textColor="@color/white"
+        android:visibility="visible"
         android:text="삭제"/>
 
 </LinearLayout>

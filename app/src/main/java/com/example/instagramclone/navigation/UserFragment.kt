@@ -1,8 +1,10 @@
 package com.example.instagramclone.navigation
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_user.view.*
+import kotlinx.android.synthetic.main.item_detail.view.*
 
 class UserFragment : Fragment() {
 
@@ -181,7 +184,25 @@ class UserFragment : Fragment() {
         FcmPush.instance.sendMessage(destinationUid, "InstagramClone", message)
     }
 
+//    //사진 올린 사람 별 프로필 이미지 뿌리기
+//            //기본 이미지 세팅 후
+//            val image = "https://firebasestorage.googleapis.com/v0/b/instagramclone-d76d7.appspot.com/o/userProfileImages%2FxSVsQQFZJeholpRDVKZhm9xQWHV2?alt=media&token=ecf6b52b-3cf7-4c0c-b2ba-90f41b3966c1"
+//            Glide.with(activity!!).load(image).apply(RequestOptions().circleCrop()).into(viewholder.detailviewitem_profile_image)
+//
+//            firestore?.collection("profileImages")?.document(contentDTOs[position].uid.toString())?.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+//                if(documentSnapshot?.data == null) return@addSnapshotListener
+//                if(documentSnapshot?.data != null){
+//                    //유저 이미지가 있는 경우 넣어주기
+//                    var url = documentSnapshot?.data!!["image"]
+//                    Glide.with(activity!!).load(url).apply(RequestOptions().circleCrop()).into(fragmentView.account_iv_profile)
+//                }
+//            }
+
+
     fun getProfileImage(){
+        val image = "https://firebasestorage.googleapis.com/v0/b/instagramclone-d76d7.appspot.com/o/userProfileImages%2FxSVsQQFZJeholpRDVKZhm9xQWHV2?alt=media&token=ecf6b52b-3cf7-4c0c-b2ba-90f41b3966c1"
+        Glide.with(activity!!).load(image).apply(RequestOptions().circleCrop()).into(fragmentView?.account_iv_profile!!)
+
         firestore?.collection("profileImages")?.document(uid!!)?.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
             if(documentSnapshot == null) return@addSnapshotListener
 

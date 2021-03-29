@@ -36,10 +36,10 @@
         <!-- 컨텐츠 표시부분 -->
         <ImageView
             android:id="@+id/detailviewitem_imageview_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:layout_gravity="center"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitCenter"/>
 
         <!-- 설명글 표시 -->
         <TextView
@@ -89,6 +89,14 @@
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_chat_black"/>
+
+            <ImageView
+                android:id="@+id/detailviewitem_delete"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:visibility="gone"
+                android:src="@drawable/ic_delete"/>
 
         </LinearLayout>
 

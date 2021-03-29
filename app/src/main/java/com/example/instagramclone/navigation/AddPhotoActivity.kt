@@ -120,9 +120,10 @@ class AddPhotoActivity : AppCompatActivity() {
                 contentDTO.explain = add_photo_edit_explan.text.toString()
 
                 //Insert timestamp of image
-                contentDTO.timestamp = System.currentTimeMillis()
+                val currentTimeStamp = System.currentTimeMillis()
+                contentDTO.timestamp = currentTimeStamp
 
-                firestore?.collection("images")?.document()?.set(contentDTO)
+                firestore?.collection("images")?.document(currentTimeStamp.toString())?.set(contentDTO)
 
                 setResult(Activity.RESULT_OK)
 

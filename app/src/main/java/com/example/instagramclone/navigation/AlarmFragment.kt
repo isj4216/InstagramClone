@@ -67,7 +67,8 @@ class AlarmFragment : Fragment(){
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             var view = holder.itemView
 
-            FirebaseFirestore.getInstance().collection("profileImages").document(alarmDTOList[position].uid!!).get().addOnCompleteListener {task ->
+            FirebaseFirestore.getInstance().collection("profileImages")
+                    .document(alarmDTOList[position].uid!!).get().addOnCompleteListener {task ->
                 if(task.isSuccessful){
                     val url = task.result!!["image"]
                     if(url.toString().contains("https://firebasestorage.googleapis.com")){
