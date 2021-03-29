@@ -121,6 +121,7 @@ class DetailViewFragment : Fragment() {
             }
         }
 
+        //좋아요 눌렀을 때!
         fun favoriteEvent(position : Int){
             var tsDoc = firestore?.collection("images")?.document(contentUidList[position])
             firestore?.runTransaction {
@@ -149,7 +150,7 @@ class DetailViewFragment : Fragment() {
             alarmDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
             alarmDTO.kind = 0
             alarmDTO.timestamp = System.currentTimeMillis()
-            FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
+            FirebaseFirestore.getInstance().collection("alarms").document(alarmDTO.timestamp.toString()).set(alarmDTO)
 
             //앱 푸시
             var message = FirebaseAuth.getInstance()?.currentUser?.email + " " +

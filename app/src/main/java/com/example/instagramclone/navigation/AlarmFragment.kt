@@ -1,5 +1,6 @@
 package com.example.instagramclone.navigation
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_alarm.view.*
 import kotlinx.android.synthetic.main.item_comment.*
 import kotlinx.android.synthetic.main.item_comment.view.*
 
-class AlarmFragment : Fragment(), View.OnClickListener {
+class AlarmFragment : Fragment(){
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -74,33 +75,25 @@ class AlarmFragment : Fragment(), View.OnClickListener {
             when(alarmDTOList[position].kind){
                 0 -> {
                     var str_0 = alarmDTOList[position].userId + " " + getString(R.string.alarm_favorite)
-                    view.delete_btn.text = alarmDTOList[position].timestamp.toString()
                     view.comment_profile_textview.text = str_0
                 }
 
                 1 -> {
                     var str_1 = alarmDTOList[position].userId + " " + getString(R.string.alarm_comment)
-                    view.delete_btn.text = alarmDTOList[position].timestamp.toString()
                     view.comment_profile_textview.text = str_1
                 }
 
                 2 -> {
                     var str_2 = alarmDTOList[position].userId + " " +getString(R.string.alarm_follow)
-                    view.delete_btn.text = alarmDTOList[position].timestamp.toString()
                     view.comment_profile_textview.text = str_2
                 }
             }
             view.comment_message.visibility = View.GONE
-            view.delete_btn.visibility = View.VISIBLE
 
-//            FirebaseFirestore.getInstance().collection("alarms").document(delete_btn.text.toString()).delete()
-
-            onClick(delete_btn)
+            //알림 리스트 삭제
+            holder.itemView.delete_btn.setOnClickListener {
+                FirebaseFirestore.getInstance().collection("alarms").document(alarmDTOList[position].timestamp.toString()).delete()
+            }
         }
-    }
-
-    override fun onClick(v: View?) {
-        Log.e("delete", v?.delete_btn?.text.toString())
-//        FirebaseFirestore.getInstance().collection("alarms").document(delete_btn.text.toString()).delete()
     }
 }
