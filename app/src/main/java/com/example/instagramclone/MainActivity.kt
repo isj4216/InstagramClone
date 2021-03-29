@@ -111,8 +111,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         super.onActivityResult(requestCode, resultCode, data)
         //프로필 이미지 누른 뒤 뒤로 돌아왔을 때
 
-        Toast.makeText(this, "aa", Toast.LENGTH_LONG).show()
-
         if(requestCode == UserFragment.PICK_PROFILE_FROM_ALBUM && resultCode == Activity.RESULT_OK){
             var imageUri = data?.data
             var uid = FirebaseAuth.getInstance().currentUser?.uid
