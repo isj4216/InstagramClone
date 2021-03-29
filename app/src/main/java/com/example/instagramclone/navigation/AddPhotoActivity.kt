@@ -6,7 +6,10 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
+import com.example.instagramclone.MainActivity
 import com.example.instagramclone.R
 import com.example.instagramclone.navigation.model.ContentDTO
 import com.google.android.gms.tasks.Task
@@ -46,6 +49,10 @@ class AddPhotoActivity : AppCompatActivity() {
         //add image btn event
         add_photo_btn.setOnClickListener {
             contentUpload()
+
+            var intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("account", "account")
+            startActivity(intent)
         }
     }
 

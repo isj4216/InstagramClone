@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -32,8 +33,14 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         bottom_navigation.setOnNavigationItemSelectedListener(this)
 
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
-        //메인화면이 뜰경우 DetailViewFragment가 뜰 수 있도록
-        bottom_navigation.selectedItemId = R.id.action_home
+
+        if(intent.getStringExtra("account") == "account")
+        {
+            bottom_navigation.selectedItemId = R.id.action_account
+        }else{
+            //메인화면이 뜰경우 DetailViewFragment가 뜰 수 있도록
+            bottom_navigation.selectedItemId = R.id.action_home
+        }
 
         registerPushToken()
     }
@@ -77,6 +84,13 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
             R.id.action_account -> {
                 var userFragment = UserFragment()
+
+                if (intent.getStringExtra("account") == "account"){
+                    Log.e("123123", "123123")
+
+                    supportFragmentManager.beginTransaction().remove(userFragment)
+                }
+
                 var bundle = Bundle()
                 var uid = FirebaseAuth.getInstance().currentUser?.uid
                 bundle.putString("destinationUid", uid)
